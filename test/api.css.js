@@ -77,6 +77,13 @@ describe('$(...)', function() {
       expect(el.eq(1).attr('style')).to.equal('foo: 0;');
     });
 
+    it('should invalidate _html cache on style change', function() {
+      var el = $('<h2></h2>');
+      expect($.html(el)).to.equal('<h2></h2>');
+      el.css('display', 'none');
+      expect($.html(el)).to.equal('<h2 style="display: none;"></h2>');
+    });
+
     describe('parser', function(){
       it('should allow any whitespace between declarations', function() {
         var el = $('<li style="one \t:\n 0;\n two \f\r:\v 1">');
